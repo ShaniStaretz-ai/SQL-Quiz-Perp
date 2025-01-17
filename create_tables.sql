@@ -5,8 +5,8 @@ name TEXT);
 CREATE TABLE if NOT EXISTS orders (
 order_id INTEGER PRIMARY KEY, 
 date_time TEXT,
-address TEXT
-customer_name TEXT
+address TEXT,
+customer_name TEXT,
 customer_ph TEXT,
 total_price INTEGER);
 
@@ -29,11 +29,11 @@ sugar INTEGER,
 FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-CREATE TABLE products_order (
+CREATE TABLE products_orders (
   order_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
   amount INTEGER NOT NULL,
                 PRIMARY KEY(order_id, product_id),
-     FOREIGN KEY (order_id) REFERENCES orders(order_id)
+     FOREIGN KEY (order_id) REFERENCES orders(order_id),
      FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
