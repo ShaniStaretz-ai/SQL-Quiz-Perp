@@ -86,12 +86,14 @@ select p.*, min_value from products p JOIN
 (select p.product_id as p_id,sum(po.amount) as total_amount from products p join products_orders po on po.product_id=p.product_id
 GROUP by po.product_id)) total_p
 on total_p.p_id=p.product_id
+limit 1
 
 -- the first product that was the least seller from all the exist products
 select p.* from products p
 left JOIN products_orders po
 on p.product_id=po.product_id
 where po.product_id is null;
+limit 1
 
 --avgerage product seller
 SELECT p.* FROM products p join (
@@ -99,17 +101,24 @@ select avg(total_amount) as avg_value,p_id from
 (select p.product_id as p_id,sum(po.amount) as total_amount from products p join products_orders po on po.product_id=p.product_id
 GROUP by po.product_id)) avg_product 
 on p.product_id=avg_product.p_id
-
--- viii category with max product seller 
+limit 1
+-- viii. category with max product seller 
 select c.* from category c join (
 select max(total_amount) as max_value,max_category from
 (select p.category_id as max_category,p.product_id as p_id,sum(po.amount) as total_amount from products p join products_orders po on po.product_id=p.product_id
 GROUP by po.product_id)) max_seller_amount
 on max_seller_amount.max_category=c.category_id
 
--- viii category with min product seller 
+-- viii. category with min product seller 
 select c.* from category c JOIN
 (select min(total_amount) as min_value,c_id from
 (select p.category_id as c_id,sum(po.amount) as total_amount from products p join products_orders po on po.product_id=p.product_id
 GROUP by po.product_id)) total_p
 on total_p.c_id=c.category_id
+
+-- ix. most order with the same product
+SELECT p.* FROM products p join (
+select max(total_orders) as max_value,p_id from
+(select p.product_id as p_id,count(po.order_id) as total_orders from products p join products_orders po on po.product_id=p.product_id
+GROUP by po.product_id) )max_orders
+on p.product_id=max_orders.p_id
