@@ -7,14 +7,15 @@ select o.*,p.*,po.amount from orders o
 join products_orders po on po.order_id = o.order_id
 join products p on po.product_id = p.product_id;
 --d.iii
-insert into products_orders (order_id,product_id,amount) values(1,3,1);
-insert into products_orders (order_id,product_id,amount) values(2,4,1);
-insert into products_orders (order_id,product_id,amount) values(3,3,1);
-insert into products_orders (order_id,product_id,amount) values(4,3,1);
-insert into products_orders (order_id,product_id,amount) values(5,2,1);
-insert into products_orders (order_id,product_id,amount) values(6,1,2);
-insert into products_orders (order_id,product_id,amount) values(6,2,2);
-insert into products_orders (order_id,product_id,amount) values(6,4,2);
+insert into products_orders (order_id,product_id,amount) values
+(1,3,1);
+(2,4,1);
+(3,3,1);
+(4,3,1);
+(5,2,1);
+(6,1,2);
+(6,2,2);
+(6,4,2);
 
 --d.iv
 update orders  set total_price=t.tp 
